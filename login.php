@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         if (password_verify($password, $hashed_password)) {
             // Redirigir a la página de inicio tras el inicio de sesión exitoso
-            header("Location: pagina de inicio.html");
+            header("Location: paginadeinicio.html");
             exit();
         } else {
             echo "Contraseña incorrecta.";
