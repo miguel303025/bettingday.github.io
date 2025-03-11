@@ -1,0 +1,116 @@
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Depositar Fondos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+ </head>
+ <body class="bg-gray-100 flex flex-col items-center justify-between min-h-screen relative">
+  <img alt="High quality football background" class="absolute inset-0 w-full h-full object-cover z-0" height="1080" src="https://storage.googleapis.com/a1aa/image/bWwtw_gqrpA99PXH35gZMSTLwYN3-kAvfoPJiDujnf4.jpg" width="1920"/>
+  <div class="bg-white bg-opacity-80 shadow-lg rounded-lg p-8 w-full max-w-2xl mt-2 relative z-10 mx-4 sm:mx-0 flex-grow">
+   <div class="flex justify-between items-center mb-6">
+    <div class="flex items-center">
+     <img alt="Apuestas logo" class="h-8 w-8 mr-2" height="30" src="https://storage.googleapis.com/a1aa/image/w2AK6uAxKmlwT4uwqdprJZH1r-_XX36E_miRmV4mWYA.jpg" width="30"/>
+     <span class="text-lg font-semibold text-gray-700">Apuestas</span>
+    </div>
+    <div class="flex items-center">
+     <div class="flex items-center bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded mr-2">
+      <i class="fas fa-wallet text-green-500 mr-1"></i>
+      <span id="current-balance" class="text-lg font-semibold text-green-600">$0</span>
+     </div>
+    </div>
+   </div>
+   <div class="text-center text-2xl font-bold mb-6">Depositar Fondos</div>
+   <div id="deposit-section" class="space-y-6">
+    <div class="bg-gray-50 p-6 rounded-lg shadow-inner">
+     <h3 class="text-lg font-semibold text-gray-700 mb-4">Monto a Depositar</h3>
+     <form id="deposit-form" class="space-y-4">
+      <div>
+       <label class="block text-sm font-medium text-gray-700" for="deposit-amount">Monto a Depositar</label>
+       <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="deposit-amount" required type="number" min="1"/>
+      </div>
+      <div>
+       <p class="text-sm text-gray-700">Monto a depositar: <span id="deposit-amount-display">$0</span></p>
+      </div>
+      <div>
+       <button class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 bg-opacity-75 hover:bg-opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">
+        Confirmar Depósito
+       </button>
+      </div>
+     </form>
+    </div>
+   </div>
+   <div id="confirmation-section" class="space-y-6 hidden">
+    <h3 class="text-lg font-semibold text-gray-700 mb-4">Depósito Confirmado</h3>
+    <div class="bg-gray-50 p-6 rounded-lg shadow-inner mb-4">
+     <h4 class="text-lg font-semibold text-gray-700 mb-2">Cuenta de Banco Popular</h4>
+     <p class="text-sm text-gray-700">Nombre: Empresa Apuestas</p>
+     <p class="text-sm text-gray-700">Número de Cuenta: 1234567890</p>
+    </div>
+    <p class="text-sm text-gray-600 mb-4">Antes de confirmar tu depósito, realiza el depósito en la cuenta bancaria mencionada y adjunta un capture del comprobante aquí:</p>
+    <form id="upload-capture-form" class="space-y-4">
+     <div>
+      <label class="block text-sm font-medium text-gray-700" for="capture-upload">Subir Capture</label>
+      <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="capture-upload" required type="file" accept="image/*"/>
+     </div>
+     <div>
+      <button class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 bg-opacity-75 hover:bg-opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">
+       Subir Capture
+      </button>
+     </div>
+    </form>
+    <p class="text-sm text-gray-600 mt-4">Escribe a este <a href="https://t.me/tu_telegram" class="text-blue-500 underline">Telegram</a> cuando ya hayas subido el capture del depósito y escríbenos tu nombre de usuario.</p>
+   </div>
+  </div>
+  <div class="fixed bottom-0 w-full max-w-2xl bg-white bg-opacity-80 shadow-lg rounded-t-lg p-4 relative z-10">
+   <div class="flex justify-around text-center text-sm text-gray-600 p-2 mt-2 rounded-t-lg">
+    <div>
+     <a href="index.html">
+      <i class="fas fa-home text-blue-500 mb-1"></i>
+      <div>Inicio</div>
+     </a>
+    </div>
+    <div>
+     <a href="referidos.html">
+      <i class="fas fa-user-friends text-blue-500 mb-1"></i>
+      <div>Referidos</div>
+     </a>
+    </div>
+    <div>
+     <a href="apuestas.html">
+      <i class="fas fa-money-bill-wave text-blue-500 mb-1"></i>
+      <div>Mis Apuestas</div>
+     </a>
+    </div>
+    <div>
+     <a href="configuracion.html">
+      <i class="fas fa-cog text-blue-500 mb-1"></i>
+      <div>Configuración</div>
+     </a>
+    </div>
+   </div>
+  </div>
+  <script>
+    // Update the displayed deposit amount
+    document.getElementById('deposit-amount').addEventListener('input', function() {
+      const depositAmount = parseFloat(this.value) || 0;
+      document.getElementById('deposit-amount-display').textContent = `$${depositAmount.toFixed(2)}`;
+    });
+
+    // Handle deposit form submission
+    document.getElementById('deposit-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      document.getElementById('deposit-section').classList.add('hidden');
+      document.getElementById('confirmation-section').classList.remove('hidden');
+    });
+
+    // Handle capture upload form submission
+    document.getElementById('upload-capture-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      alert('Capture subido con éxito');
+      // Here you would typically handle the file upload to your backend or storage
+    });
+  </script>
+ </body>
+</html>

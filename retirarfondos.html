@@ -1,0 +1,186 @@
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retirar Fondos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+ </head>
+ <body class="bg-gray-100 flex flex-col items-center justify-between min-h-screen relative">
+  <img alt="High quality football background" class="absolute inset-0 w-full h-full object-cover z-0" height="1080" src="https://storage.googleapis.com/a1aa/image/bWwtw_gqrpA99PXH35gZMSTLwYN3-kAvfoPJiDujnf4.jpg" width="1920"/>
+  <div class="bg-white bg-opacity-80 shadow-lg rounded-lg p-8 w-full max-w-2xl mt-2 relative z-10 mx-4 sm:mx-0 flex-grow">
+   <div class="flex justify-between items-center mb-6">
+    <div class="flex items-center">
+     <img alt="Apuestas logo" class="h-8 w-8 mr-2" height="30" src="https://storage.googleapis.com/a1aa/image/w2AK6uAxKmlwT4uwqdprJZH1r-_XX36E_miRmV4mWYA.jpg" width="30"/>
+     <span class="text-lg font-semibold text-gray-700">Apuestas</span>
+    </div>
+    <div class="flex items-center">
+     <div class="flex items-center bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded mr-2">
+      <i class="fas fa-wallet text-green-500 mr-1"></i>
+      <span id="current-balance" class="text-lg font-semibold text-green-600">$0</span>
+     </div>
+    </div>
+   </div>
+   <div class="text-center text-2xl font-bold mb-6">Retirar Fondos</div>
+   <div id="bank-account-section" class="space-y-6">
+    <!-- If bank account is not added -->
+    <div id="no-bank-account" class="bg-gray-50 p-6 rounded-lg shadow-inner">
+     <h3 class="text-lg font-semibold text-gray-700 mb-4">No has agregado una cuenta de banco</h3>
+     <p class="text-sm text-gray-600 mb-4">Para retirar fondos, primero debes agregar una cuenta de banco.</p>
+     <button id="add-bank-account-btn" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      Agregar Cuenta de Banco
+     </button>
+    </div>
+    <!-- Add bank account form -->
+    <div id="add-bank-account-form" class="bg-gray-50 p-6 rounded-lg shadow-inner hidden">
+     <h3 class="text-lg font-semibold text-gray-700 mb-4">Agregar Cuenta de Banco de República Dominicana</h3>
+     <form id="bank-account-form" class="space-y-4">
+      <div>
+       <label class="block text-sm font-medium text-gray-700" for="account-name">Nombre de la Cuenta</label>
+       <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="account-name" required type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium text-gray-700" for="bank-name">Nombre del Banco</label>
+       <select class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="bank-name" required>
+        <option value="">Selecciona un banco</option>
+        <option value="Banco Popular">Banco Popular</option>
+        <option value="Banco BHD León">Banco BHD León</option>
+        <option value="Banreservas">Banreservas</option>
+        <option value="Banco Santa Cruz">Banco Santa Cruz</option>
+       </select>
+      </div>
+      <div>
+       <label class="block text-sm font-medium text-gray-700" for="account-number">Número de Cuenta</label>
+       <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="account-number" required type="text"/>
+      </div>
+      <div>
+       <button class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">
+        Agregar Cuenta
+       </button>
+      </div>
+     </form>
+    </div>
+    <!-- If bank account is added -->
+    <div id="bank-account-added" class="bg-gray-50 p-6 rounded-lg shadow-inner hidden">
+     <h3 class="text-lg font-semibold text-gray-700 mb-4">Retirar Fondos</h3>
+     <div id="account-info" class="mb-4 text-sm text-gray-700"></div>
+     <form id="withdraw-form" class="space-y-4">
+      <div>
+       <label class="block text-sm font-medium text-gray-700" for="withdraw-amount">Monto a Retirar</label>
+       <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="withdraw-amount" required type="number" min="1" max="5000"/>
+      </div>
+      <div>
+       <p class="text-sm text-gray-700">Se cobrará un 10% de comisión sobre el monto retirado.</p>
+       <p class="text-sm text-gray-700">Monto final a recibir: <span id="final-amount">$0</span></p>
+       <p class="text-sm text-gray-700">El límite por retiro es $5000 y se permiten 2 retiros por día.</p>
+      </div>
+      <div>
+       <button class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">
+        Retirar
+       </button>
+      </div>
+     </form>
+    </div>
+   </div>
+  </div>
+  <div class="fixed bottom-0 w-full max-w-2xl bg-white bg-opacity-80 shadow-lg rounded-t-lg p-4 relative z-10">
+   <div class="flex justify-around text-center text-sm text-gray-600 p-2 mt-2 rounded-t-lg">
+    <div>
+     <a href="index.html">
+      <i class="fas fa-home text-blue-500 mb-1"></i>
+      <div>Inicio</div>
+     </a>
+    </div>
+    <div>
+     <a href="referidos.html">
+      <i class="fas fa-user-friends text-blue-500 mb-1"></i>
+      <div>Referidos</div>
+     </a>
+    </div>
+    <div>
+     <a href="apuestas.html">
+      <i class="fas fa-money-bill-wave text-blue-500 mb-1"></i>
+      <div>Mis Apuestas</div>
+     </a>
+    </div>
+    <div>
+     <a href="configuracion.html">
+      <i class="fas fa-cog text-blue-500 mb-1"></i>
+      <div>Configuración</div>
+     </a>
+    </div>
+   </div>
+  </div>
+  <script>
+    // Simulate checking if a bank account is added
+    let bankAccountAdded = false; // Change this to true if the bank account is added
+    let currentBalance = 0; // Change this to the actual balance
+    let withdrawalCount = 0; // Track the number of withdrawals
+
+    if (bankAccountAdded) {
+      document.getElementById('no-bank-account').classList.add('hidden');
+      document.getElementById('bank-account-added').classList.remove('hidden');
+    } else {
+      document.getElementById('no-bank-account').classList.remove('hidden');
+      document.getElementById('bank-account-added').classList.add('hidden');
+    }
+
+    // Show add bank account form
+    document.getElementById('add-bank-account-btn').addEventListener('click', function() {
+      document.getElementById('no-bank-account').classList.add('hidden');
+      document.getElementById('add-bank-account-form').classList.remove('hidden');
+    });
+
+    // Handle add bank account form submission
+    document.getElementById('bank-account-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const accountName = document.getElementById('account-name').value;
+      const bankName = document.getElementById('bank-name').value;
+      const accountNumber = document.getElementById('account-number').value;
+      const maskedAccountNumber = accountNumber.slice(0, -4).replace(/./g, '*') + accountNumber.slice(-4);
+      const accountInfo = `${accountName} - ${bankName} - ${maskedAccountNumber}`;
+      document.getElementById('account-info').textContent = `Cuenta agregada: ${accountInfo}`;
+      alert('Cuenta de banco agregada con éxito');
+      // Here you would typically add the new bank account to your backend or local storage
+      document.getElementById('add-bank-account-form').classList.add('hidden');
+      document.getElementById('bank-account-added').classList.remove('hidden');
+      bankAccountAdded = true;
+    });
+
+    // Update final amount to receive
+    document.getElementById('withdraw-amount').addEventListener('input', function() {
+      const withdrawAmount = parseFloat(this.value) || 0;
+      const finalAmount = withdrawAmount * 0.9; // Deduct 10% fee
+      document.getElementById('final-amount').textContent = `$${finalAmount.toFixed(2)}`;
+    });
+
+    // Handle withdraw form submission
+    document.getElementById('withdraw-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const withdrawAmount = parseFloat(document.getElementById('withdraw-amount').value);
+      const finalAmount = withdrawAmount * 0.9; // Deduct 10% fee
+
+      if (withdrawAmount > currentBalance) {
+        alert('No tienes fondos suficientes para retirar.');
+        return;
+      }
+
+      if (withdrawAmount > 5000) {
+        alert('El monto máximo por retiro es $5000.');
+        return;
+      }
+
+      if (withdrawalCount >= 2) {
+        alert('Has alcanzado el límite de 2 retiros por día.');
+        return;
+      }
+
+      currentBalance -= withdrawAmount;
+      withdrawalCount += 1;
+      document.getElementById('current-balance').textContent = `$${currentBalance.toFixed(2)}`;
+      alert(`Retiro realizado con éxito. Monto recibido: $${finalAmount.toFixed(2)}`);
+      // Here you would typically handle the withdrawal process and update the backend or local storage
+    });
+  </script>
+ </body>
+</html>
